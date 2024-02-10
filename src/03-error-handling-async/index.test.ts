@@ -8,17 +8,20 @@ import {
 
 describe('resolveValue', () => {
   test('should resolve provided value', async () => {
-    await expect(resolveValue(10)).resolves.toBe(10);
+    const valueToResolve = 10;
+    await expect(resolveValue(valueToResolve)).resolves.toBe(valueToResolve);
   });
 });
 
 describe('throwError', () => {
   test('should throw error with provided message', () => {
-    expect(() => throwError('Error msg')).toThrow('Error msg');
+    const errorMessage = 'Error message';
+    expect(() => throwError(errorMessage)).toThrow(errorMessage);
   });
 
   test('should throw error with default message if message is not provided', () => {
-    expect(throwError).toThrow('Oops!');
+    const defaultErrorMessage = 'Oops!';
+    expect(throwError).toThrow(defaultErrorMessage);
   });
 });
 

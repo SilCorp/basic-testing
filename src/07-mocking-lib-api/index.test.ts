@@ -11,15 +11,15 @@ jest.mock('lodash', () => {
     throttle: jest.fn((cb) => cb),
   };
 });
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+const mockAxios = axios as jest.Mocked<typeof axios>;
 
 describe('throttledGetDataFromApi', () => {
   beforeEach(() => {
-    mockedAxios.create.mockReturnThis();
+    mockAxios.create.mockReturnThis();
   });
 
   test('should create instance with provided base url', async () => {
-    const spyAxiosCreate = jest.spyOn(mockedAxios, 'create');
+    const spyAxiosCreate = jest.spyOn(mockAxios, 'create');
     const baseURL = 'https://jsonplaceholder.typicode.com';
 
     // Throw error as we did not mock axios.get
@@ -32,7 +32,7 @@ describe('throttledGetDataFromApi', () => {
   });
 
   test('should perform request to correct provided url', async () => {
-    const spyAxiosGet = jest.spyOn(mockedAxios, 'get');
+    const spyAxiosGet = jest.spyOn(mockAxios, 'get');
     const relativePath = '/posts';
 
     // Throw error as we did not mock axios.get
@@ -44,7 +44,7 @@ describe('throttledGetDataFromApi', () => {
 
   test('should return response data', async () => {
     const mockResponse = { data: [{ id: 1 }] };
-    mockedAxios.get.mockResolvedValue(mockResponse);
+    mockAxios.get.mockResolvedValue(mockResponse);
 
     await expect(throttledGetDataFromApi('/posts')).resolves.toEqual(
       mockResponse.data,
